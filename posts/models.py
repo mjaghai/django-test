@@ -33,7 +33,9 @@ class Post(models.Model):
         verbose_name="نویسنده",
     )
 
-    image = models.ImageField(upload_to="posts/%Y/%m/%d/", verbose_name="تصویر اصلی")
+    image = models.ImageField(
+        upload_to="posts/%Y/%m/%d/", blank=True, verbose_name="تصویر اصلی"
+    )
     description = models.CharField(
         max_length=300,
         verbose_name="توضیح کوتاه",
