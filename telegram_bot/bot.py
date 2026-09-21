@@ -2,9 +2,16 @@
 
 import os
 import sys
+from pathlib import Path
 
 # اضافه کردن مسیر پروژه به sys.path
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(BASE_DIR))
+
+# لود .env
+from dotenv import load_dotenv
+
+load_dotenv(BASE_DIR / ".env")
 
 import django
 
@@ -27,7 +34,7 @@ def main():
 
     if not token:
         print("❌ متغیر TELEGRAM_BOT_TOKEN تنظیم نشده!")
-        print("   export TELEGRAM_BOT_TOKEN='your-token-here'")
+        print("   فایل .env رو بساز و TELEGRAM_BOT_TOKEN رو تنظیم کن.")
         return
 
     # ساخت application
