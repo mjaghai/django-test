@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}ثبت‌نام | خودرومگ{% endblock %}
+
+{% block content %}
+<section class="auth-section">
+    <div class="auth-card">
+        <h1>ساخت حساب کاربری</h1>
+        <p class="auth-sub">به جمع علاقه‌مندان خودرو در خودرومگ بپیوندید</p>
+
+        {% if form.non_field_errors %}
+        <div class="alert alert-error">{{ form.non_field_errors.0 }}</div>
+        {% endif %}
+
+        <form method="post" action="{% url 'register' %}" class="auth-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_username">نام کاربری</label>
+                <input type="text" name="username" id="id_username" required autofocus>
+                {% if form.username.errors %}<span class="field-error">{{ form.username.errors.0 }}</span>{% endif %}
+            </div>
+            <div class="form-group">
+                <label for="id_email">ایمیل</label>
+                <input type="email" name="email" id="id_email" required>
+                {% if form.email.errors %}<span class="field-error">{{ form.email.errors.0 }}</span>{% endif %}
+            </div>
+            <div class="form-group">
+                <label for="id_password1">رمز عبور</label>
+                <input type="password" name="password1" id="id_password1" required>
+                {% if form.password1.errors %}<span class="field-error">{{ form.password1.errors.0 }}</span>{% endif %}
+            </div>
+            <div class="form-group">
+                <label for="id_password2">تکرار رمز عبور</label>
+                <input type="password" name="password2" id="id_password2" required>
+                {% if form.password2.errors %}<span class="field-error">{{ form.password2.errors.0 }}</span>{% endif %}
+            </div>
+            <button type="submit" class="btn-accent btn-block">ثبت‌نام</button>
+        </form>
+
+        <p class="auth-switch">قبلاً حساب کاربری دارید؟ <a href="{% url 'login' %}">وارد شوید</a></p>
+    </div>
+</section>
+{% endblock %}

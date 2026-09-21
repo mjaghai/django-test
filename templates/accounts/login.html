@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}ورود | خودرومگ{% endblock %}
+
+{% block content %}
+<section class="auth-section">
+    <div class="auth-card">
+        <h1>ورود به حساب کاربری</h1>
+        <p class="auth-sub">خوش برگشتید! برای ادامه وارد شوید</p>
+
+        {% if form.non_field_errors %}
+        <div class="alert alert-error">{{ form.non_field_errors.0 }}</div>
+        {% endif %}
+
+        <form method="post" action="{% url 'login' %}" class="auth-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_username">نام کاربری</label>
+                <input type="text" name="username" id="id_username" required autofocus>
+                {% if form.username.errors %}<span class="field-error">{{ form.username.errors.0 }}</span>{% endif %}
+            </div>
+            <div class="form-group">
+                <label for="id_password">رمز عبور</label>
+                <input type="password" name="password" id="id_password" required>
+                {% if form.password.errors %}<span class="field-error">{{ form.password.errors.0 }}</span>{% endif %}
+            </div>
+            <div class="form-row">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="remember"> مرا به خاطر بسپار
+                </label>
+                <a href="#" class="link-muted">رمز عبور را فراموش کرده‌اید؟</a>
+            </div>
+            <button type="submit" class="btn-accent btn-block">ورود</button>
+        </form>
+
+        <p class="auth-switch">حساب کاربری ندارید؟ <a href="{% url 'register' %}">ثبت‌نام کنید</a></p>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} | خودرومگ{% endblock %}
+{% block meta_description %}{{ post.description|default:post.title }}{% endblock %}
+
+{% block content %}
+<section class="post-detail">
+    <div class="container">
+
+        <nav class="breadcrumb">
+            <a href="{% url 'home' %}">خانه</a> /
+            <a href="{% url 'post_list' %}">پست‌ها</a> /
+            <span>{{ post.title }}</span>
+        </nav>
+
+        <div class="post-cover">
+            {% if post.image %}
+                <img src="{{ post.image.url }}" alt="{{ post.title }}">
+            {% else %}
+                <div class="img-placeholder large">🚗</div>
+            {% endif %}
+        </div>
+
+        <header class="post-head">
+            {% if post.category %}<span class="post-tag static">{{ post.category }}</span>{% endif %}
+            <h1>{{ post.title }}</h1>
+            <div class="post-meta">
+                <span>📅 {{ post.created_at|date:"Y/m/d" }}</span>
+                {% if post.author %}<span>✍️ {{ post.author }}</span>{% endif %}
+            </div>
+        </header>
+
+        {% if post.brand or post.model or post.year or post.engine or post.horsepower or post.price %}
+        <div class="specs-box">
+            <div class="specs-box-head">
+                <h2>مشخصات فنی</h2>
+                <span class="specs-box-tag">DATA SHEET</span>
+            </div>
+            <div class="specs-grid">
+                {% if post.brand %}<div class="spec-item"><span>برند</span><b>{{ post.brand }}</b></div>{% endif %}
+                {% if post.model %}<div class="spec-item"><span>مدل</span><b>{{ post.model }}</b></div>{% endif %}
+                {% if post.year %}<div class="spec-item"><span>سال تولید</span><b>{{ post.year }}</b></div>{% endif %}
+                {% if post.engine %}<div class="spec-item"><span>موتور</span><b>{{ post.engine }}</b></div>{% endif %}
+                {% if post.horsepower %}<div class="spec-item"><span>قدرت</span><b>{{ post.horsepower }} HP</b></div>{% endif %}
+                {% if post.transmission %}<div class="spec-item"><span>گیربکس</span><b>{{ post.transmission }}</b></div>{% endif %}
+                {% if post.fuel_type %}<div class="spec-item"><span>نوع سوخت</span><b>{{ post.fuel_type }}</b></div>{% endif %}
+                {% if post.price %}<div class="spec-item"><span>قیمت</span><b>{{ post.price }} تومان</b></div>{% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="post-body">
+            {{ post.content|linebreaks }}
+        </div>
+
+        {% if post.tags.all %}
+        <div class="post-tags">
+            {% for tag in post.tags.all %}<span class="tag-chip">#{{ tag }}</span>{% endfor %}
+        </div>
+        {% endif %}
+
+        {% if related_posts %}
+        <section class="related-posts">
+            <h2>پست‌های مرتبط</h2>
+            <div class="posts-grid">
+                {% for related in related_posts %}
+                <article class="post-card">
+                    <a href="{% url 'post_detail' related.slug %}" class="post-card-img">
+                        {% if related.image %}<img src="{{ related.image.url }}" alt="{{ related.title }}">
+                        {% else %}<div class="img-placeholder">🚗</div>{% endif %}
+                        {% if related.category %}<span class="post-tag">{{ related.category }}</span>{% endif %}
+                    </a>
+                    <div class="post-card-body">
+                        <span class="post-date">{{ related.created_at|date:"Y/m/d" }}</span>
+                        <h3><a href="{% url 'post_detail' related.slug %}">{{ related.title }}</a></h3>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        <section class="comments-section">
+            <h2>نظرات ({{ post.comments.all.count|default:0 }})</h2>
+
+            {% if user.is_authenticated %}
+            <form method="post" action="" class="comment-form">
+                {% csrf_token %}
+                <textarea name="text" placeholder="نظر خود را بنویسید..." required></textarea>
+                <button type="submit" class="btn-accent">ارسال نظر</button>
+            </form>
+            {% else %}
+            <p class="login-prompt"><a href="{% url 'login' %}">وارد شوید</a> تا بتوانید نظر خود را ثبت کنید.</p>
+            {% endif %}
+
+            <div class="comments-list">
+                {% for comment in post.comments.all %}
+                <div class="comment-item">
+                    <div class="comment-head">
+                        <b>{{ comment.author }}</b>
+                        <span>{{ comment.created_at|date:"Y/m/d" }}</span>
+                    </div>
+                    <p>{{ comment.text }}</p>
+                </div>
+                {% empty %}
+                <p class="empty-text">اولین نفری باشید که نظر می‌دهد.</p>
+                {% endfor %}
+            </div>
+        </section>
+
+    </div>
+</section>
+{% endblock %}

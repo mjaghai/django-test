@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}جستجو: {{ query }} | خودرومگ{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>نتایج جستجو</h1>
+        {% if query %}
+            <p>نتایج جستجو برای: «{{ query }}» — {{ results|length }} نتیجه یافت شد</p>
+        {% else %}
+            <p>عبارت مورد نظر خود را جستجو کنید</p>
+        {% endif %}
+    </div>
+</section>
+
+<section class="posts-section">
+    <div class="container">
+
+        <form class="search-form-full" action="{% url 'search' %}" method="get">
+            <input type="text" name="q" placeholder="جستجوی خودرو، برند، مدل..." value="{{ query|default:'' }}">
+            <button type="submit" class="btn-accent">جستجو</button>
+        </form>
+
+        <div class="posts-grid">
+            {% for post in results %}
+            <article class="post-card">
+                <a href="{% url 'post_detail' post.slug %}" class="post-card-img">
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                    {% else %}
+                        <div class="img-placeholder">🚗</div>
+                    {% endif %}
+                    {% if post.category %}<span class="post-tag">{{ post.category }}</span>{% endif %}
+                </a>
+                <div class="post-card-body">
+                    <span class="post-date">{{ post.created_at|date:"Y/m/d" }}</span>
+                    <h3><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h3>
+                    <p>{{ post.description|truncatewords:18 }}</p>
+                    {% if post.engine or post.horsepower %}
+                    <div class="card-spec-strip">
+                        {% if post.engine %}<span>{{ post.engine }}</span>{% endif %}
+                        {% if post.horsepower %}<span>{{ post.horsepower }} HP</span>{% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            </article>
+            {% empty %}
+            <div class="no-results">
+                <span class="empty-icon">🔍</span>
+                <p>متأسفانه نتیجه‌ای برای جستجوی شما یافت نشد.</p>
+                <p class="empty-sub">کلمات کلیدی دیگری را امتحان کنید یا املای آن را بررسی کنید.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

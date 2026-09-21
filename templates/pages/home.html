@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}خودرومگ | مرجع تخصصی خودرو{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-grid-bg" aria-hidden="true"></div>
+    <svg class="hero-car-art" aria-hidden="true" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+        <path d="M60,210 C60,180 90,175 120,170 L170,120 C185,105 205,98 225,98 L430,98 C452,98 472,107 486,122 L525,168 C555,172 585,178 605,195 C615,203 618,213 615,225 L610,232 L60,232 Z"
+              fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
+        <line x1="170" y1="120" x2="220" y2="120" stroke="currentColor" stroke-width="1" opacity="0.35"/>
+        <circle cx="160" cy="232" r="34" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
+        <circle cx="160" cy="232" r="14" fill="none" stroke="currentColor" stroke-width="1" opacity="0.35"/>
+        <circle cx="520" cy="232" r="34" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
+        <circle cx="520" cy="232" r="14" fill="none" stroke="currentColor" stroke-width="1" opacity="0.35"/>
+        <line x1="0" y1="232" x2="800" y2="232" stroke="currentColor" stroke-width="1" opacity="0.25"/>
+        <line x1="60" y1="250" x2="60" y2="258" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+        <line x1="615" y1="250" x2="615" y2="258" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+        <line x1="60" y1="254" x2="615" y2="254" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+    </svg>
+    <div class="container hero-inner">
+        <span class="hero-eyebrow">مرجع تخصصی خودرو</span>
+        <h1>دنیای خودرو را با <span>خودرومگ</span> کشف کنید</h1>
+        <p>بررسی فنی دقیق، اخبار لحظه‌ای و مقایسه‌ کامل بهترین خودروهای بازار داخلی و جهانی</p>
+        <div class="hero-actions">
+            <a href="{% url 'post_list' %}" class="btn-accent">مشاهده همه پست‌ها</a>
+            <a href="{% url 'about' %}" class="btn-outline">بیشتر بدانید</a>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="container features-grid">
+        <div class="feature-card">
+            <span class="feature-icon">🔧</span>
+            <h3>بررسی دقیق فنی</h3>
+            <p>مشخصات کامل موتور، قدرت، مصرف سوخت و امکانات هر خودرو</p>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">📰</span>
+            <h3>اخبار لحظه‌ای</h3>
+            <p>تازه‌ترین رویدادها و رونمایی‌های صنعت خودرو در ایران و جهان</p>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">⚖️</span>
+            <h3>مقایسه هوشمند</h3>
+            <p>مقایسه چند خودرو کنار هم برای انتخابی بهتر و آگاهانه‌تر</p>
+        </div>
+    </div>
+</section>
+
+<section class="latest-posts">
+    <div class="container">
+        <div class="section-head">
+            <h2>جدیدترین پست‌ها</h2>
+            <a href="{% url 'post_list' %}" class="see-all">مشاهده همه ←</a>
+        </div>
+
+        <div class="posts-grid">
+            {% for post in latest_posts %}
+            <article class="post-card">
+                <a href="" class="post-card-img">
+                    {% if post.image %}
+                        <img src="" alt="{{ post.title }}">
+                    {% else %}
+                        <div class="img-placeholder">🚗</div>
+                    {% endif %}
+                    {% if post.category %}<span class="post-tag">{{ post.category }}</span>{% endif %}
+                </a>
+                <div class="post-card-body">
+                    <span class="post-date">{{ post.created_at|date:"Y/m/d" }}</span>
+                    <h3><a href="">{{ post.title }}</a></h3>
+                    <p>{{ post.description|truncatewords:18 }}</p>
+                    {% if post.engine or post.horsepower %}
+                    <div class="card-spec-strip">
+                        {% if post.engine %}<span>{{ post.engine }}</span>{% endif %}
+                        {% if post.horsepower %}<span>{{ post.horsepower }} HP</span>{% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            </article>
+            {% empty %}
+            <p class="empty-text">هنوز پستی منتشر نشده است.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
