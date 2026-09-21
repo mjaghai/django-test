@@ -46,7 +46,7 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name='تاریخ به‌روزرسانی')
 
     class Meta:
-        ordering = ['-created_at']
+        ordering = ['-created_at']  # noqa: RUF012
         verbose_name = 'پست'
         verbose_name_plural = 'پست‌ها'
 
