@@ -1,0 +1,603 @@
+/* ============================================
+   خودرومگ — Django Admin Override
+   Dark garage theme matching the main site
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+    --admin-bg: #121215;
+    --admin-surface: #19191d;
+    --admin-surface-2: #232328;
+    --admin-border: #2d2d33;
+    --admin-text: #f2f1ec;
+    --admin-text-muted: #96959d;
+    --admin-text-dim: #5f5f68;
+    --admin-amber: #ff8c1a;
+    --admin-amber-hover: #ffa348;
+    --admin-amber-dim: rgba(255, 140, 26, 0.14);
+    --admin-amber-glow: rgba(255, 140, 26, 0.3);
+    --admin-red: #e0303d;
+    --admin-red-dim: rgba(224, 48, 61, 0.14);
+    --admin-green: #4ade80;
+    --admin-green-dim: rgba(74, 222, 128, 0.12);
+    --admin-radius: 8px;
+    --admin-radius-lg: 14px;
+    --admin-font: 'Vazirmatn', Tahoma, sans-serif;
+    --admin-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ===== Base ===== */
+body, #container {
+    background: var(--admin-bg) !important;
+    color: var(--admin-text) !important;
+    font-family: var(--admin-font) !important;
+}
+
+#container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ===== Header ===== */
+#header {
+    background: rgba(18, 18, 21, 0.95) !important;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--admin-border) !important;
+    box-shadow: none !important;
+    padding: 0 20px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+}
+
+#branding h1, #branding h1 a {
+    color: var(--admin-text) !important;
+    font-family: var(--admin-font) !important;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+#branding h1 b, #branding h1 a b {
+    color: var(--admin-amber);
+}
+
+#header a {
+    color: var(--admin-text-muted) !important;
+    transition: color 0.2s;
+}
+
+#header a:hover {
+    color: var(--admin-amber) !important;
+}
+
+#user-tools {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 0.85rem;
+}
+
+#user-tools a {
+    padding: 6px 14px;
+    border-radius: var(--admin-radius);
+    border: 1px solid var(--admin-border);
+    transition: all 0.2s;
+}
+
+#user-tools a:hover {
+    border-color: var(--admin-amber);
+    color: var(--admin-amber) !important;
+}
+
+#user-tools span {
+    color: var(--admin-text-muted);
+}
+
+/* ===== Sidebar ===== */
+#sidebar {
+    background: var(--admin-surface) !important;
+    border-left: 1px solid var(--admin-border) !important;
+    width: 240px;
+    padding: 16px 0;
+}
+
+[dir="rtl"] #sidebar {
+    border-left: none;
+    border-right: 1px solid var(--admin-border) !important;
+}
+
+#sidebar h2 {
+    color: var(--admin-text-dim);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 8px 20px;
+    margin: 8px 0 4px;
+    font-family: var(--admin-font-mono);
+}
+
+#sidebar .module {
+    background: transparent !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#sidebar .module h2 {
+    background: transparent !important;
+    color: var(--admin-text-dim) !important;
+    border: none !important;
+    font-size: 0.7rem;
+}
+
+#sidebar a {
+    color: var(--admin-text-muted) !important;
+    padding: 8px 20px !important;
+    display: block;
+    transition: all 0.2s;
+    border-left: 2px solid transparent;
+    font-size: 0.88rem;
+}
+
+[dir="rtl"] #sidebar a {
+    border-left: none;
+    border-right: 2px solid transparent;
+}
+
+#sidebar a:hover {
+    color: var(--admin-text) !important;
+    background: var(--admin-surface-2) !important;
+    border-color: var(--admin-amber);
+}
+
+#sidebar a:focus-visible {
+    outline: 2px solid var(--admin-amber);
+    outline-offset: -2px;
+}
+
+#sidebar .current-app > a {
+    color: var(--admin-amber) !important;
+    border-color: var(--admin-amber);
+    background: var(--admin-amber-dim) !important;
+    font-weight: 600;
+}
+
+/* ===== Content ===== */
+#content {
+    flex: 1;
+    padding: 24px 32px !important;
+    max-width: none !important;
+}
+
+#content-main {
+    float: none !important;
+    width: 100% !important;
+}
+
+/* ===== Page Title ===== */
+.module h2, .module caption, h1.heading, h2.heading {
+    color: var(--admin-text) !important;
+    font-family: var(--admin-font) !important;
+    font-weight: 700;
+}
+
+h1.heading {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+}
+
+/* ===== Breadcrumbs ===== */
+.breadcrumbs {
+    background: var(--admin-surface) !important;
+    border: 1px solid var(--admin-border) !important;
+    border-radius: var(--admin-radius);
+    padding: 10px 16px !important;
+    margin-bottom: 20px;
+    font-size: 0.85rem;
+}
+
+.breadcrumbs a {
+    color: var(--admin-text-muted) !important;
+    transition: color 0.2s;
+}
+
+.breadcrumbs a:hover {
+    color: var(--admin-amber) !important;
+}
+
+.breadcrumbs .current {
+    color: var(--admin-text) !important;
+    font-weight: 600;
+}
+
+/* ===== Cards & Modules ===== */
+.module {
+    background: var(--admin-surface) !important;
+    border: 1px solid var(--admin-border) !important;
+    border-radius: var(--admin-radius-lg) !important;
+    margin-bottom: 24px !important;
+    overflow: hidden;
+}
+
+.module h2, .module caption {
+    background: var(--admin-surface-2) !important;
+    color: var(--admin-text) !important;
+    padding: 14px 20px !important;
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--admin-border);
+}
+
+.module caption {
+    border-radius: var(--admin-radius-lg) var(--admin-radius-lg) 0 0;
+}
+
+/* ===== Tables ===== */
+.module table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.module th {
+    background: var(--admin-surface-2) !important;
+    color: var(--admin-text-muted) !important;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 12px 16px !important;
+    border-bottom: 1px solid var(--admin-border) !important;
+    font-family: var(--admin-font-mono);
+}
+
+.module td {
+    padding: 12px 16px !important;
+    border-bottom: 1px solid var(--admin-border) !important;
+    color: var(--admin-text) !important;
+    font-size: 0.9rem;
+    vertical-align: middle;
+}
+
+.module tr:hover td {
+    background: rgba(255, 255, 255, 0.02) !important;
+}
+
+.module tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* ===== Links in tables ===== */
+.module td a, .module td a:visited {
+    color: var(--admin-amber) !important;
+    transition: color 0.2s;
+}
+
+.module td a:hover {
+    color: var(--admin-amber-hover) !important;
+}
+
+/* ===== Action Row ===== */
+.actions {
+    background: var(--admin-surface-2) !important;
+    border: 1px solid var(--admin-border) !important;
+    border-radius: var(--admin-radius) !important;
+    padding: 10px 16px !important;
+    margin: 16px 0 !important;
+}
+
+.actions label {
+    color: var(--admin-text-muted) !important;
+    font-size: 0.85rem;
+}
+
+/* ===== Buttons ===== */
+button, input[type="submit"], .button, .submit-row input, .submit-row button {
+    background: var(--admin-surface-2) !important;
+    color: var(--admin-text) !important;
+    border: 1px solid var(--admin-border) !important;
+    border-radius: var(--admin-radius) !important;
+    padding: 8px 18px !important;
+    font-family: var(--admin-font) !important;
+    font-size: 0.88rem !important;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s !important;
+}
+
+button:hover, input[type="submit"]:hover, .button:hover, .submit-row input:hover, .submit-row button:hover {
+    border-color: var(--admin-amber) !important;
+    color: var(--admin-amber) !important;
+    background: var(--admin-amber-dim) !important;
+}
+
+button:focus-visible, input[type="submit"]:focus-visible, .button:focus-visible {
+    outline: 2px solid var(--admin-amber);
+    outline-offset: 2px;
+}
+
+.default {
+    background: var(--admin-amber) !important;
+    color: #16110a !important;
+    border-color: var(--admin-amber) !important;
+    font-weight: 600;
+}
+
+.default:hover {
+    background: var(--admin-amber-hover) !important;
+    color: #16110a !important;
+}
+
+.deletelink {
+    background: var(--admin-red-dim) !important;
+    color: var(--admin-red) !important;
+    border-color: var(--admin-red) !important;
+}
+
+.deletelink:hover {
+    background: var(--admin-red) !important;
+    color: #fff !important;
+}
+
+/* ===== Forms ===== */
+.fieldWrapper label, label.required {
+    color: var(--admin-text-muted) !important;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+input[type="text"], input[type="email"], input[type="password"], input[type="url"],
+input[type="number"], input[type="date"], input[type="datetime"],
+input[type="search"], textarea, select, .vTextField, .vURLField {
+    background: var(--admin-surface-2) !important;
+    border: 1px solid var(--admin-border) !important;
+    border-radius: var(--admin-radius) !important;
+    color: var(--admin-text) !important;
+    padding: 10px 14px !important;
+    font-family: var(--admin-font) !important;
+    font-size: 0.9rem !important;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+    max-width: 400px;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus,
+input[type="url"]:focus, input[type="number"]:focus, input[type="date"]:focus,
+textarea:focus, select:focus, .vTextField:focus, .vURLField:focus {
+    border-color: var(--admin-amber) !important;
+    box-shadow: 0 0 0 3px var(--admin-amber-glow) !important;
+    outline: none !important;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2396959d' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left 12px center;
+    padding-left: 32px !important;
+}
+
+[dir="rtl"] select {
+    background-position: right 12px center;
+    padding-left: 14px !important;
+    padding-right: 32px !important;
+}
+
+/* ===== Checkbox & Radio ===== */
+[type="checkbox"], [type="radio"] {
+    accent-color: var(--admin-amber);
+    width: 16px;
+    height: 16px;
+}
+
+/* ===== Help Text ===== */
+.help, .help텍스트 {
+    color: var(--admin-text-dim) !important;
+    font-size: 0.78rem;
+    margin-top: 4px;
+}
+
+/* ===== Errors ===== */
+.errorlist, .errornote, .error {
+    color: var(--admin-red) !important;
+    font-size: 0.85rem;
+}
+
+.errorlist {
+    background: var(--admin-red-dim);
+    border: 1px solid rgba(224, 48, 61, 0.35);
+    border-radius: var(--admin-radius);
+    padding: 10px 14px;
+    margin: 8px 0;
+    list-style: none;
+}
+
+.errornote {
+    background: var(--admin-red-dim);
+    border: 1px solid rgba(224, 48, 61, 0.35);
+    border-radius: var(--admin-radius);
+    padding: 12px 16px;
+    margin-bottom: 16px;
+}
+
+/* ===== Success Messages ===== */
+.success, .messagelist .success {
+    background: var(--admin-green-dim) !important;
+    color: var(--admin-green) !important;
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    border-radius: var(--admin-radius);
+    padding: 12px 16px;
+    margin-bottom: 16px;
+}
+
+/* ===== Object Tools ===== */
+.object-tools {
+    margin-bottom: 16px;
+}
+
+.object-tools a {
+    background: var(--admin-surface-2) !important;
+    color: var(--admin-text-muted) !important;
+    border: 1px solid var(--admin-border) !important;
+    border-radius: var(--admin-radius) !important;
+    padding: 8px 16px !important;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.object-tools a:hover {
+    border-color: var(--admin-amber) !important;
+    color: var(--admin-amber) !important;
+}
+
+/* ===== Pagination ===== */
+.paginator {
+    background: var(--admin-surface) !important;
+    border: 1px solid var(--admin-border) !important;
+    border-radius: var(--admin-radius) !important;
+    padding: 10px 16px;
+    margin-top: 16px;
+    font-size: 0.85rem;
+}
+
+.paginator a {
+    color: var(--admin-text-muted) !important;
+    padding: 4px 10px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.paginator a:hover {
+    color: var(--admin-amber) !important;
+    background: var(--admin-amber-dim);
+}
+
+.paginator .this-page {
+    color: var(--admin-amber) !important;
+    font-weight: 600;
+}
+
+/* ===== Filter Sidebar ===== */
+#changelist-filter {
+    background: var(--admin-surface) !important;
+    border: 1px solid var(--admin-border) !important;
+    border-radius: var(--admin-radius-lg) !important;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+#changelist-filter h2 {
+    color: var(--admin-text) !important;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--admin-border);
+}
+
+#changelist-filter a {
+    color: var(--admin-text-muted) !important;
+    font-size: 0.85rem;
+    padding: 4px 8px;
+    display: inline-block;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+#changelist-filter a:hover {
+    color: var(--admin-amber) !important;
+    background: var(--admin-amber-dim);
+}
+
+#changelist-filter .selected {
+    color: var(--admin-amber) !important;
+    font-weight: 600;
+    background: var(--admin-amber-dim);
+}
+
+/* ===== Footer ===== */
+#footer {
+    background: var(--admin-surface) !important;
+    border-top: 1px solid var(--admin-border) !important;
+    color: var(--admin-text-dim) !important;
+    padding: 16px 32px;
+    font-size: 0.78rem;
+}
+
+/* ===== Login Page ===== */
+.login #content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 24px !important;
+}
+
+.login #content-main {
+    max-width: 400px;
+    width: 100%;
+}
+
+.login .module {
+    border-radius: var(--admin-radius-lg) !important;
+    padding: 32px !important;
+}
+
+.login h1 {
+    text-align: center;
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+}
+
+.login .form-row {
+    margin-bottom: 16px;
+}
+
+.login .form-row label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.login .submit-row {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* ===== Focus States (Accessibility) ===== */
+a:focus-visible, button:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--admin-amber) !important;
+    outline-offset: 2px;
+}
+
+/* ===== Reduced Motion ===== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    #sidebar {
+        display: none;
+    }
+
+    #content {
+        padding: 16px !important;
+    }
+
+    .module td, .module th {
+        padding: 8px 10px !important;
+        font-size: 0.82rem;
+    }
+
+    input[type="text"], input[type="email"], input[type="password"],
+    input[type="url"], input[type="number"], textarea, select {
+        max-width: 100%;
+    }
+}
