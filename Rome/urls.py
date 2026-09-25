@@ -26,6 +26,8 @@ urlpatterns = [
     path('',include('pages.urls')),
     path('posts/',include('posts.urls')),
     path('accounts/',include('accounts.urls')),
-   
-    
 ]
+
+# سرو کردن فایل‌های آپلود شده در حالت توسعه
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

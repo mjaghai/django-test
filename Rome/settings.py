@@ -131,6 +131,18 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
 
+# Media files (تصاویر آپلود شده)
+# https://docs.djangoproject.com/en/6.1/ref/settings/#media-root
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# حداکثر حجم آپلود فایل — پیش‌فرض 2.5 مگابایت
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024  # 5 MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024  # 5 MB
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000
+
+
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
