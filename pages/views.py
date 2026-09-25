@@ -1,12 +1,13 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+
+from posts.models import Post
 
 
-# Create your views here.
 def home(request):
+    """صفحه اصلی — آخرین ۶ پست منتشر شده"""
+    latest_posts = Post.objects.filter(is_published=True)[:6]
+    return render(request, "pages/home.html", {"latest_posts": latest_posts})
 
-
-    return render(request,'pages/home.html')
 
 def about(request):
-    return render(request,'pages/about.html')
+    return render(request, "pages/about.html")

@@ -59,9 +59,9 @@
         <div class="posts-grid">
             {% for post in latest_posts %}
             <article class="post-card">
-                <a href="" class="post-card-img">
+                <a href="{% url 'post_detail' post.slug %}" class="post-card-img">
                     {% if post.image %}
-                        <img src="" alt="{{ post.title }}">
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}">
                     {% else %}
                         <div class="img-placeholder">🚗</div>
                     {% endif %}
@@ -69,7 +69,7 @@
                 </a>
                 <div class="post-card-body">
                     <span class="post-date">{{ post.created_at|date:"Y/m/d" }}</span>
-                    <h3><a href="">{{ post.title }}</a></h3>
+                    <h3><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h3>
                     <p>{{ post.description|truncatewords:18 }}</p>
                     {% if post.engine or post.horsepower %}
                     <div class="card-spec-strip">
