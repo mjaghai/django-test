@@ -32,7 +32,7 @@
                 <a href="{% url 'about' %}">درباره ما</a>
             </nav>
 
-            <form class="search-form" action="" method="get" role="search">
+            <form class="search-form" action="{% url 'post_list' %}" method="get" role="search">
                 <input type="text" name="q" placeholder="جستجوی خودرو، برند، مدل..." aria-label="جستجو" value="{{ request.GET.q|default:'' }}">
                 <button type="submit" aria-label="جستجو">
                     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -42,7 +42,7 @@
             <div class="auth-links" id="authLinks">
                 {% if user.is_authenticated %}
                     <span class="hello-user">سلام، {{ user.username }}</span>
-                    <form action="" method="post" class="logout-form">
+                    <form action="{% url 'logout' %}" method="post" class="logout-form">
                         {% csrf_token %}
                         <button type="submit" class="btn-outline btn-sm">خروج</button>
                     </form>
