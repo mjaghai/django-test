@@ -51,6 +51,17 @@ class Post(models.Model):
     horsepower = models.PositiveIntegerField(
         null=True, blank=True, verbose_name="قدرت (اسب‌بخار)"
     )
+    acceleration_0_100 = models.DecimalField(
+        max_digits=4,
+        decimal_places=1,
+        null=True,
+        blank=True,
+        verbose_name="شتاب ۰ تا ۱۰۰ (ثانیه)",
+        help_text="زمان رسیدن از ۰ به ۱۰۰ کیلومتر بر ساعت، بر حسب ثانیه",
+    )
+    torque = models.PositiveIntegerField(
+        null=True, blank=True, verbose_name="گشتاور (نیوتن‌متر)"
+    )
     transmission = models.CharField(
         max_length=20,
         choices=TransmissionType.choices,

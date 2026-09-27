@@ -141,6 +141,11 @@ env.bak/
 venv.bak/
 myworld/
 
+# Database backups
+backups/
+backup_*.sql
+backup_*.json
+
 # Spyder project settings
 .spyderproject
 .spyproject
