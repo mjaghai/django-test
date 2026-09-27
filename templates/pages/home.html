@@ -31,21 +31,21 @@
 
 <section class="features">
     <div class="container features-grid">
-        <div class="feature-card">
+        <a href="{% url 'review' %}" class="feature-card">
             <span class="feature-icon">🔧</span>
             <h3>بررسی دقیق فنی</h3>
-            <p>مشخصات کامل موتور، قدرت، مصرف سوخت و امکانات هر خودرو</p>
-        </div>
-        <div class="feature-card">
+            <p>مشخصات کامل موتور، قدرت، گشتاور و امکانات هر خودرو</p>
+        </a>
+        <a href="{% url 'news' %}" class="feature-card">
             <span class="feature-icon">📰</span>
             <h3>اخبار لحظه‌ای</h3>
             <p>تازه‌ترین رویدادها و رونمایی‌های صنعت خودرو در ایران و جهان</p>
-        </div>
-        <div class="feature-card">
+        </a>
+        <a href="{% url 'comparison' %}" class="feature-card">
             <span class="feature-icon">⚖️</span>
             <h3>مقایسه هوشمند</h3>
             <p>مقایسه چند خودرو کنار هم برای انتخابی بهتر و آگاهانه‌تر</p>
-        </div>
+        </a>
     </div>
 </section>
 
@@ -58,27 +58,7 @@
 
         <div class="posts-grid">
             {% for post in latest_posts %}
-            <article class="post-card">
-                <a href="{% url 'post_detail' post.slug %}" class="post-card-img">
-                    {% if post.image %}
-                        <img src="{{ post.image.url }}" alt="{{ post.title }}">
-                    {% else %}
-                        <div class="img-placeholder">🚗</div>
-                    {% endif %}
-                    {% if post.category %}<span class="post-tag">{{ post.category }}</span>{% endif %}
-                </a>
-                <div class="post-card-body">
-                    <span class="post-date">{{ post.created_at|date:"Y/m/d" }}</span>
-                    <h3><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h3>
-                    <p>{{ post.description|truncatewords:18 }}</p>
-                    {% if post.engine or post.horsepower %}
-                    <div class="card-spec-strip">
-                        {% if post.engine %}<span>{{ post.engine }}</span>{% endif %}
-                        {% if post.horsepower %}<span>{{ post.horsepower }} HP</span>{% endif %}
-                    </div>
-                    {% endif %}
-                </div>
-            </article>
+                {% include "posts/_post_card.html" %}
             {% empty %}
             <p class="empty-text">هنوز پستی منتشر نشده است.</p>
             {% endfor %}

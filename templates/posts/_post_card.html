@@ -1,0 +1,26 @@
+{% comment %}
+کارت پست — استفاده مشترک در همه صفحات
+استفاده: {% include "posts/_post_card.html" with post=post %}
+{% endcomment %}
+<article class="post-card">
+    <a href="{% url 'post_detail' post.slug %}" class="post-card-img">
+        {% if post.image %}
+            <img src="{{ post.image.url }}" alt="{{ post.title }}" loading="lazy">
+        {% else %}
+            <div class="img-placeholder">🚗</div>
+        {% endif %}
+        {% if post.category %}<span class="post-tag">{{ post.category }}</span>{% endif %}
+    </a>
+    <div class="post-card-body">
+        <span class="post-date">{{ post.created_at|date:"Y/m/d" }}</span>
+        <h3><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h3>
+        <p>{{ post.description|truncatewords:18 }}</p>
+        {% if post.horsepower or post.acceleration_0_100 or post.torque %}
+        <div class="card-spec-strip">
+            {% if post.horsepower %}<span>{{ post.horsepower }} HP</span>{% endif %}
+            {% if post.acceleration_0_100 %}<span>{{ post.acceleration_0_100 }}s</span>{% endif %}
+            {% if post.torque %}<span>{{ post.torque }} Nm</span>{% endif %}
+        </div>
+        {% endif %}
+    </div>
+</article>

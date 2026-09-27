@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 
-{% block title %}همه پست‌ها | خودرومگ{% endblock %}
+{% block title %}اخبار خودرو | خودرومگ{% endblock %}
+{% block meta_description %}تازه‌ترین اخبار و رویدادهای صنعت خودرو در ایران و جهان{% endblock %}
 
 {% block content %}
 <section class="page-header">
     <div class="container">
-        <h1>همه پست‌ها</h1>
-        <p>آخرین بررسی‌ها و اخبار خودرو را اینجا دنبال کنید</p>
+        <span class="hero-eyebrow">📰 اخبار</span>
+        <h1>اخبار خودرو</h1>
+        <p>تازه‌ترین رویدادها، رونمایی‌ها و اخبار صنعت خودرو</p>
     </div>
 </section>
 
@@ -16,7 +18,11 @@
             {% for post in page_obj.object_list %}
                 {% include "posts/_post_card.html" %}
             {% empty %}
-            <p class="empty-text">هنوز پستی منتشر نشده است.</p>
+                <div class="no-results">
+                    <span class="empty-icon">📰</span>
+                    <p>هنوز خبری منتشر نشده است.</p>
+                    <p class="empty-sub">به‌زودی تازه‌ترین اخبار اضافه می‌شه.</p>
+                </div>
             {% endfor %}
         </div>
 

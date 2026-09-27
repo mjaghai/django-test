@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}مقایسه خودروها | خودرومگ{% endblock %}
+{% block meta_description %}مقایسه چند خودرو کنار هم با مشخصات فنی کامل{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <span class="hero-eyebrow">⚖️ مقایسه</span>
+        <h1>مقایسه خودروها</h1>
+        <p>مشخصات فنی چند خودرو را کنار هم ببینید و انتخاب آگاهانه‌تری داشته باشید</p>
+    </div>
+</section>
+
+<section class="posts-section">
+    <div class="container">
+        {% if posts %}
+        <div class="compare-scroll">
+            <table class="compare-table">
+                <caption class="sr-only">جدول مقایسه مشخصات فنی خودروها</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">مشخصه</th>
+                        {% for post in posts %}
+                        <th scope="col">
+                            <a href="{% url 'post_detail' post.slug %}">{{ post.brand }} {{ post.model }}</a>
+                            {% if post.year %}<small>{{ post.year }}</small>{% endif %}
+                        </th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">قیمت</th>
+                        {% for post in posts %}
+                        <td>{% if post.price %}{{ post.price|floatformat:0 }} <span class="unit">تومان</span>{% else %}—{% endif %}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <th scope="row">موتور</th>
+                        {% for post in posts %}
+                        <td>{{ post.engine|default:"—" }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <th scope="row">قدرت</th>
+                        {% for post in posts %}
+                        <td>{% if post.horsepower %}<b>{{ post.horsepower }}</b> <span class="unit">HP</span>{% else %}—{% endif %}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr class="highlight-row">
+                        <th scope="row">شتاب ۰-۱۰۰</th>
+                        {% for post in posts %}
+                        <td>{% if post.acceleration_0_100 %}<b>{{ post.acceleration_0_100 }}</b> <span class="unit">ثانیه</span>{% else %}—{% endif %}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr class="highlight-row">
+                        <th scope="row">گشتاور</th>
+                        {% for post in posts %}
+                        <td>{% if post.torque %}<b>{{ post.torque }}</b> <span class="unit">Nm</span>{% else %}—{% endif %}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <th scope="row">گیربکس</th>
+                        {% for post in posts %}
+                        <td>{{ post.get_transmission_display|default:"—" }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <th scope="row">نوع سوخت</th>
+                        {% for post in posts %}
+                        <td>{{ post.get_fuel_type_display|default:"—" }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <th scope="row">سال تولید</th>
+                        {% for post in posts %}
+                        <td>{{ post.year|default:"—" }}</td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="compare-legend">
+            <p><b>نکته:</b> ردیف‌های هایلایت‌شده (شتاب و گشتاور) مهم‌ترین معیارهای انتخاب خودروی اسپرت هستن.</p>
+        </div>
+        {% else %}
+        <div class="no-results">
+            <span class="empty-icon">⚖️</span>
+            <p>هنوز خودرویی برای مقایسه اضافه نشده است.</p>
+            <p class="empty-sub">برای اضافه شدن، دسته‌بندی پست رو «مقایسه» بذار.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 
-{% block title %}همه پست‌ها | خودرومگ{% endblock %}
+{% block title %}بررسی فنی خودرو | خودرومگ{% endblock %}
+{% block meta_description %}بررسی دقیق فنی خودروها با مشخصات کامل موتور، گیربکس و عملکرد{% endblock %}
 
 {% block content %}
 <section class="page-header">
     <div class="container">
-        <h1>همه پست‌ها</h1>
-        <p>آخرین بررسی‌ها و اخبار خودرو را اینجا دنبال کنید</p>
+        <span class="hero-eyebrow">🔧 بررسی فنی</span>
+        <h1>بررسی فنی</h1>
+        <p>مشخصات کامل موتور، قدرت، گشتاور و عملکرد هر خودرو</p>
     </div>
 </section>
 
@@ -16,7 +18,11 @@
             {% for post in page_obj.object_list %}
                 {% include "posts/_post_card.html" %}
             {% empty %}
-            <p class="empty-text">هنوز پستی منتشر نشده است.</p>
+                <div class="no-results">
+                    <span class="empty-icon">🔧</span>
+                    <p>هنوز بررسی‌ای منتشر نشده است.</p>
+                    <p class="empty-sub">به‌زودی بررسی‌های فنی اضافه می‌شه.</p>
+                </div>
             {% endfor %}
         </div>
 

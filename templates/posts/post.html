@@ -30,7 +30,7 @@
             </div>
         </header>
 
-        {% if post.brand or post.model or post.year or post.engine or post.horsepower or post.price %}
+        {% if post.brand or post.model or post.year or post.engine or post.horsepower or post.acceleration_0_100 or post.torque or post.price %}
         <div class="specs-box">
             <div class="specs-box-head">
                 <h2>مشخصات فنی</h2>
@@ -42,6 +42,8 @@
                 {% if post.year %}<div class="spec-item"><span>سال تولید</span><b>{{ post.year }}</b></div>{% endif %}
                 {% if post.engine %}<div class="spec-item"><span>موتور</span><b>{{ post.engine }}</b></div>{% endif %}
                 {% if post.horsepower %}<div class="spec-item"><span>قدرت</span><b>{{ post.horsepower }} HP</b></div>{% endif %}
+                {% if post.acceleration_0_100 %}<div class="spec-item"><span>شتاب ۰-۱۰۰</span><b>{{ post.acceleration_0_100 }} ثانیه</b></div>{% endif %}
+                {% if post.torque %}<div class="spec-item"><span>گشتاور</span><b>{{ post.torque }} Nm</b></div>{% endif %}
                 {% if post.transmission %}<div class="spec-item"><span>گیربکس</span><b>{{ post.transmission }}</b></div>{% endif %}
                 {% if post.fuel_type %}<div class="spec-item"><span>نوع سوخت</span><b>{{ post.fuel_type }}</b></div>{% endif %}
                 {% if post.price %}<div class="spec-item"><span>قیمت</span><b>{{ post.price }} تومان</b></div>{% endif %}
