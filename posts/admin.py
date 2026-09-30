@@ -23,10 +23,10 @@ class PostAdmin(admin.ModelAdmin):
     date_hierarchy = "created_at"
     ordering = ["-created_at"]
     fieldsets = [
-        ("基本信息", {"fields": ["title", "slug", "author", "image"]}),
-        ("内容", {"fields": ["description", "content"]}),
+        ("Basic Info", {"fields": ["title", "slug", "author", "image"]}),
+        ("Content", {"fields": ["description", "content"]}),
         (
-            "车辆规格",
+            "Vehicle Specs",
             {
                 "fields": [
                     "category",
@@ -35,6 +35,8 @@ class PostAdmin(admin.ModelAdmin):
                     "year",
                     "engine",
                     "horsepower",
+                    "acceleration_0_100",
+                    "torque",
                     "transmission",
                     "fuel_type",
                     "price",
@@ -42,5 +44,5 @@ class PostAdmin(admin.ModelAdmin):
                 "classes": ["collapse"],
             },
         ),
-        ("发布", {"fields": ["is_published", "created_at", "updated_at"]}),
+        ("Publishing", {"fields": ["is_published", "created_at", "updated_at"]}),
     ]

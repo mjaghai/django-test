@@ -130,7 +130,7 @@ class TestPostOptionalFields:
 
     def test_create_minimal_post(self, db, user):
         post = Post.objects.create(
-            title="最小",
+            title="حداقل",
             description="desc",
             content="body",
             author=user,
