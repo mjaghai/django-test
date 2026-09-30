@@ -1,37 +1,121 @@
 /* ============================================
-   خودرومگ — Django Admin Override
-   Dark garage theme matching the main site
+   خودرومگ — Django Admin Theme
+   Dual mode: dark (default) + light, toggled via
+   [data-theme] on <html>. Amber accent stays constant
+   across both modes for brand consistency.
    ============================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
-:root {
+/* ===== Dark theme (default) ===== */
+:root,
+[data-theme='dark'] {
     --admin-bg: #121215;
     --admin-surface: #19191d;
     --admin-surface-2: #232328;
+    --admin-surface-3: #2d2d33;
     --admin-border: #2d2d33;
+    --admin-border-strong: #3d3d45;
+
     --admin-text: #f2f1ec;
-    --admin-text-muted: #96959d;
-    --admin-text-dim: #5f5f68;
+    --admin-text-muted: #a5a4ad;
+    --admin-text-dim: #6f6e78;
+
     --admin-amber: #ff8c1a;
     --admin-amber-hover: #ffa348;
-    --admin-amber-dim: rgba(255, 140, 26, 0.14);
+    --admin-amber-contrast: #16110a;
+    --admin-amber-dim: rgba(255, 140, 26, 0.16);
     --admin-amber-glow: rgba(255, 140, 26, 0.3);
-    --admin-red: #e0303d;
-    --admin-red-dim: rgba(224, 48, 61, 0.14);
+
+    --admin-red: #f4707c;
+    --admin-red-bg: rgba(224, 48, 61, 0.16);
+    --admin-red-border: rgba(224, 48, 61, 0.4);
     --admin-green: #4ade80;
-    --admin-green-dim: rgba(74, 222, 128, 0.12);
+    --admin-green-bg: rgba(74, 222, 128, 0.13);
+    --admin-green-border: rgba(74, 222, 128, 0.32);
+
+    --admin-header-bg: rgba(18, 18, 21, 0.94);
+    --admin-row-hover: rgba(255, 255, 255, 0.028);
+    --admin-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+
     --admin-radius: 8px;
     --admin-radius-lg: 14px;
     --admin-font: 'Vazirmatn', Tahoma, sans-serif;
     --admin-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --admin-transition: 0.22s ease;
+}
+
+/* ===== Light theme ===== */
+[data-theme='light'] {
+    --admin-bg: #f7f7f5;
+    --admin-surface: #ffffff;
+    --admin-surface-2: #f1f1ee;
+    --admin-surface-3: #e6e6e2;
+    --admin-border: #ddddd8;
+    --admin-border-strong: #c4c4bd;
+
+    --admin-text: #1a1a1c;
+    --admin-text-muted: #5a5a62;
+    --admin-text-dim: #8a8a92;
+
+    /* نارنجی تیره‌تر برای کنتراست کافی روی زمینه سفید (4.5:1) */
+    --admin-amber: #b35900;
+    --admin-amber-hover: #8f4700;
+    --admin-amber-contrast: #ffffff;
+    --admin-amber-dim: rgba(179, 89, 0, 0.1);
+    --admin-amber-glow: rgba(179, 89, 0, 0.18);
+
+    --admin-red: #c6202c;
+    --admin-red-bg: rgba(198, 32, 44, 0.08);
+    --admin-red-border: rgba(198, 32, 44, 0.28);
+    --admin-green: #157f3d;
+    --admin-green-bg: rgba(21, 127, 61, 0.09);
+    --admin-green-border: rgba(21, 127, 61, 0.28);
+
+    --admin-header-bg: rgba(255, 255, 255, 0.92);
+    --admin-row-hover: rgba(0, 0, 0, 0.022);
+    --admin-shadow: 0 10px 24px rgba(0, 0, 0, 0.09);
+}
+
+/* Respect system preference before JS runs */
+@media (prefers-color-scheme: light) {
+    html:not([data-theme]) {
+        --admin-bg: #f7f7f5;
+        --admin-surface: #ffffff;
+        --admin-surface-2: #f1f1ee;
+        --admin-surface-3: #e6e6e2;
+        --admin-border: #ddddd8;
+        --admin-border-strong: #c4c4bd;
+        --admin-text: #1a1a1c;
+        --admin-text-muted: #5a5a62;
+        --admin-text-dim: #8a8a92;
+        --admin-amber: #b35900;
+        --admin-amber-hover: #8f4700;
+        --admin-amber-contrast: #ffffff;
+        --admin-amber-dim: rgba(179, 89, 0, 0.1);
+        --admin-amber-glow: rgba(179, 89, 0, 0.18);
+        --admin-red: #c6202c;
+        --admin-red-bg: rgba(198, 32, 44, 0.08);
+        --admin-red-border: rgba(198, 32, 44, 0.28);
+        --admin-green: #157f3d;
+        --admin-green-bg: rgba(21, 127, 61, 0.09);
+        --admin-green-border: rgba(21, 127, 61, 0.28);
+        --admin-header-bg: rgba(255, 255, 255, 0.92);
+        --admin-row-hover: rgba(0, 0, 0, 0.022);
+        --admin-shadow: 0 10px 24px rgba(0, 0, 0, 0.09);
+    }
 }
 
 /* ===== Base ===== */
-body, #container {
+html { color-scheme: dark; }
+html[data-theme='light'] { color-scheme: light; }
+
+body,
+#container {
     background: var(--admin-bg) !important;
     color: var(--admin-text) !important;
     font-family: var(--admin-font) !important;
+    transition: background var(--admin-transition), color var(--admin-transition);
 }
 
 #container {
@@ -41,31 +125,45 @@ body, #container {
 
 /* ===== Header ===== */
 #header {
-    background: rgba(18, 18, 21, 0.95) !important;
+    background: var(--admin-header-bg) !important;
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--admin-border) !important;
     box-shadow: none !important;
     padding: 0 20px;
-    height: 56px;
+    height: 58px;
     display: flex;
     align-items: center;
     z-index: 100;
+    transition: background var(--admin-transition), border-color var(--admin-transition);
 }
 
-#branding h1, #branding h1 a {
+#branding h1,
+#branding h1 a {
     color: var(--admin-text) !important;
     font-family: var(--admin-font) !important;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    transition: color var(--admin-transition);
 }
 
-#branding h1 b, #branding h1 a b {
+.admin-logo {
+    width: 26px;
+    height: 26px;
+    color: var(--admin-amber);
+    flex-shrink: 0;
+}
+
+#branding h1 b,
+#branding h1 a b {
     color: var(--admin-amber);
 }
 
 #header a {
     color: var(--admin-text-muted) !important;
-    transition: color 0.2s;
+    transition: color var(--admin-transition);
 }
 
 #header a:hover {
@@ -75,37 +173,79 @@ body, #container {
 #user-tools {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 8px;
     font-size: 0.85rem;
 }
 
 #user-tools a {
-    padding: 6px 14px;
+    padding: 6px 13px;
     border-radius: var(--admin-radius);
     border: 1px solid var(--admin-border);
-    transition: all 0.2s;
+    background: var(--admin-surface);
+    transition: all var(--admin-transition);
 }
 
 #user-tools a:hover {
     border-color: var(--admin-amber);
     color: var(--admin-amber) !important;
+    background: var(--admin-amber-dim);
 }
 
-#user-tools span {
+.user-greeting {
     color: var(--admin-text-muted);
+    padding-inline-end: 6px;
+}
+
+/* ===== Theme toggle ===== */
+.theme-toggle {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50% !important;
+    border: 1px solid var(--admin-border) !important;
+    background: var(--admin-surface) !important;
+    color: var(--admin-text-muted) !important;
+    cursor: pointer;
+    transition: all var(--admin-transition);
+    flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+    border-color: var(--admin-amber) !important;
+    color: var(--admin-amber) !important;
+    background: var(--admin-amber-dim) !important;
+    transform: rotate(18deg);
+}
+
+.theme-toggle:focus-visible {
+    outline: 2px solid var(--admin-amber);
+    outline-offset: 2px;
+}
+
+.theme-toggle svg {
+    width: 17px;
+    height: 17px;
+}
+
+/* در تم تاریک آیکون ماه، در تم روشن آیکون خورشید */
+[data-theme='dark'] .theme-toggle .icon-sun,
+html:not([data-theme='light']) .theme-toggle .icon-sun {
+    display: none;
+}
+[data-theme='light'] .theme-toggle .icon-moon {
+    display: none;
 }
 
 /* ===== Sidebar ===== */
 #sidebar {
     background: var(--admin-surface) !important;
-    border-left: 1px solid var(--admin-border) !important;
-    width: 240px;
+    border-inline-end: 1px solid var(--admin-border) !important;
+    width: 236px;
     padding: 16px 0;
-}
-
-[dir="rtl"] #sidebar {
-    border-left: none;
-    border-right: 1px solid var(--admin-border) !important;
+    transition: background var(--admin-transition), border-color var(--admin-transition);
 }
 
 #sidebar h2 {
@@ -135,16 +275,11 @@ body, #container {
 
 #sidebar a {
     color: var(--admin-text-muted) !important;
-    padding: 8px 20px !important;
+    padding: 9px 20px !important;
     display: block;
-    transition: all 0.2s;
-    border-left: 2px solid transparent;
+    transition: all var(--admin-transition);
+    border-inline-start: 2px solid transparent;
     font-size: 0.88rem;
-}
-
-[dir="rtl"] #sidebar a {
-    border-left: none;
-    border-right: 2px solid transparent;
 }
 
 #sidebar a:hover {
@@ -177,16 +312,22 @@ body, #container {
     width: 100% !important;
 }
 
-/* ===== Page Title ===== */
-.module h2, .module caption, h1.heading, h2.heading {
+h1.heading {
+    font-size: 1.55rem;
+    margin-bottom: 20px;
     color: var(--admin-text) !important;
     font-family: var(--admin-font) !important;
     font-weight: 700;
 }
 
-h1.heading {
-    font-size: 1.6rem;
-    margin-bottom: 20px;
+.module h2,
+.module caption {
+    background: var(--admin-surface-2) !important;
+    color: var(--admin-text) !important;
+    padding: 13px 20px !important;
+    font-size: 0.93rem;
+    border-bottom: 1px solid var(--admin-border);
+    transition: background var(--admin-transition), color var(--admin-transition);
 }
 
 /* ===== Breadcrumbs ===== */
@@ -197,11 +338,12 @@ h1.heading {
     padding: 10px 16px !important;
     margin-bottom: 20px;
     font-size: 0.85rem;
+    transition: all var(--admin-transition);
 }
 
 .breadcrumbs a {
     color: var(--admin-text-muted) !important;
-    transition: color 0.2s;
+    transition: color var(--admin-transition);
 }
 
 .breadcrumbs a:hover {
@@ -220,14 +362,8 @@ h1.heading {
     border-radius: var(--admin-radius-lg) !important;
     margin-bottom: 24px !important;
     overflow: hidden;
-}
-
-.module h2, .module caption {
-    background: var(--admin-surface-2) !important;
-    color: var(--admin-text) !important;
-    padding: 14px 20px !important;
-    font-size: 0.95rem;
-    border-bottom: 1px solid var(--admin-border);
+    box-shadow: var(--admin-shadow);
+    transition: background var(--admin-transition), border-color var(--admin-transition);
 }
 
 .module caption {
@@ -243,7 +379,7 @@ h1.heading {
 .module th {
     background: var(--admin-surface-2) !important;
     color: var(--admin-text-muted) !important;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -258,33 +394,35 @@ h1.heading {
     color: var(--admin-text) !important;
     font-size: 0.9rem;
     vertical-align: middle;
+    transition: background var(--admin-transition);
 }
 
 .module tr:hover td {
-    background: rgba(255, 255, 255, 0.02) !important;
+    background: var(--admin-row-hover) !important;
 }
 
 .module tr:last-child td {
     border-bottom: none !important;
 }
 
-/* ===== Links in tables ===== */
-.module td a, .module td a:visited {
+.module td a,
+.module td a:visited {
     color: var(--admin-amber) !important;
-    transition: color 0.2s;
+    transition: color var(--admin-transition);
 }
 
 .module td a:hover {
     color: var(--admin-amber-hover) !important;
 }
 
-/* ===== Action Row ===== */
+/* ===== Action row ===== */
 .actions {
     background: var(--admin-surface-2) !important;
     border: 1px solid var(--admin-border) !important;
     border-radius: var(--admin-radius) !important;
     padding: 10px 16px !important;
     margin: 16px 0 !important;
+    transition: all var(--admin-transition);
 }
 
 .actions label {
@@ -292,8 +430,16 @@ h1.heading {
     font-size: 0.85rem;
 }
 
+.actions select {
+    max-width: 260px;
+}
+
 /* ===== Buttons ===== */
-button, input[type="submit"], .button, .submit-row input, .submit-row button {
+button,
+input[type='submit'],
+.button,
+.submit-row input,
+.submit-row button {
     background: var(--admin-surface-2) !important;
     color: var(--admin-text) !important;
     border: 1px solid var(--admin-border) !important;
@@ -303,36 +449,43 @@ button, input[type="submit"], .button, .submit-row input, .submit-row button {
     font-size: 0.88rem !important;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s !important;
+    transition: all var(--admin-transition) !important;
 }
 
-button:hover, input[type="submit"]:hover, .button:hover, .submit-row input:hover, .submit-row button:hover {
+button:hover,
+input[type='submit']:hover,
+.button:hover,
+.submit-row input:hover,
+.submit-row button:hover {
     border-color: var(--admin-amber) !important;
     color: var(--admin-amber) !important;
     background: var(--admin-amber-dim) !important;
 }
 
-button:focus-visible, input[type="submit"]:focus-visible, .button:focus-visible {
+button:focus-visible,
+input[type='submit']:focus-visible,
+.button:focus-visible {
     outline: 2px solid var(--admin-amber);
     outline-offset: 2px;
 }
 
 .default {
     background: var(--admin-amber) !important;
-    color: #16110a !important;
+    color: var(--admin-amber-contrast) !important;
     border-color: var(--admin-amber) !important;
     font-weight: 600;
 }
 
 .default:hover {
     background: var(--admin-amber-hover) !important;
-    color: #16110a !important;
+    color: var(--admin-amber-contrast) !important;
+    border-color: var(--admin-amber-hover) !important;
 }
 
 .deletelink {
-    background: var(--admin-red-dim) !important;
+    background: var(--admin-red-bg) !important;
     color: var(--admin-red) !important;
-    border-color: var(--admin-red) !important;
+    border-color: var(--admin-red-border) !important;
 }
 
 .deletelink:hover {
@@ -341,15 +494,25 @@ button:focus-visible, input[type="submit"]:focus-visible, .button:focus-visible 
 }
 
 /* ===== Forms ===== */
-.fieldWrapper label, label.required {
+.fieldWrapper label,
+label.required {
     color: var(--admin-text-muted) !important;
     font-size: 0.85rem;
     font-weight: 500;
 }
 
-input[type="text"], input[type="email"], input[type="password"], input[type="url"],
-input[type="number"], input[type="date"], input[type="datetime"],
-input[type="search"], textarea, select, .vTextField, .vURLField {
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='url'],
+input[type='number'],
+input[type='date'],
+input[type='datetime'],
+input[type='search'],
+textarea,
+select,
+.vTextField,
+.vURLField {
     background: var(--admin-surface-2) !important;
     border: 1px solid var(--admin-border) !important;
     border-radius: var(--admin-radius) !important;
@@ -357,14 +520,17 @@ input[type="search"], textarea, select, .vTextField, .vURLField {
     padding: 10px 14px !important;
     font-family: var(--admin-font) !important;
     font-size: 0.9rem !important;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: border-color var(--admin-transition), box-shadow var(--admin-transition),
+        background var(--admin-transition);
     width: 100%;
     max-width: 400px;
 }
 
-input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus,
-input[type="url"]:focus, input[type="number"]:focus, input[type="date"]:focus,
-textarea:focus, select:focus, .vTextField:focus, .vURLField:focus {
+input:focus,
+textarea:focus,
+select:focus,
+.vTextField:focus,
+.vURLField:focus {
     border-color: var(--admin-amber) !important;
     box-shadow: 0 0 0 3px var(--admin-amber-glow) !important;
     outline: none !important;
@@ -383,35 +549,37 @@ select {
     padding-left: 32px !important;
 }
 
-[dir="rtl"] select {
+[dir='rtl'] select {
     background-position: right 12px center;
     padding-left: 14px !important;
     padding-right: 32px !important;
 }
 
-/* ===== Checkbox & Radio ===== */
-[type="checkbox"], [type="radio"] {
+[type='checkbox'],
+[type='radio'] {
     accent-color: var(--admin-amber);
     width: 16px;
     height: 16px;
 }
 
-/* ===== Help Text ===== */
-.help, .help텍스트 {
+/* ===== Help text ===== */
+.help {
     color: var(--admin-text-dim) !important;
     font-size: 0.78rem;
     margin-top: 4px;
 }
 
 /* ===== Errors ===== */
-.errorlist, .errornote, .error {
+.errorlist,
+.errornote,
+.error {
     color: var(--admin-red) !important;
     font-size: 0.85rem;
 }
 
 .errorlist {
-    background: var(--admin-red-dim);
-    border: 1px solid rgba(224, 48, 61, 0.35);
+    background: var(--admin-red-bg);
+    border: 1px solid var(--admin-red-border);
     border-radius: var(--admin-radius);
     padding: 10px 14px;
     margin: 8px 0;
@@ -419,24 +587,25 @@ select {
 }
 
 .errornote {
-    background: var(--admin-red-dim);
-    border: 1px solid rgba(224, 48, 61, 0.35);
+    background: var(--admin-red-bg);
+    border: 1px solid var(--admin-red-border);
     border-radius: var(--admin-radius);
     padding: 12px 16px;
     margin-bottom: 16px;
 }
 
-/* ===== Success Messages ===== */
-.success, .messagelist .success {
-    background: var(--admin-green-dim) !important;
+/* ===== Success ===== */
+.success,
+.messagelist .success {
+    background: var(--admin-green-bg) !important;
     color: var(--admin-green) !important;
-    border: 1px solid rgba(74, 222, 128, 0.3);
+    border: 1px solid var(--admin-green-border);
     border-radius: var(--admin-radius);
     padding: 12px 16px;
     margin-bottom: 16px;
 }
 
-/* ===== Object Tools ===== */
+/* ===== Object tools ===== */
 .object-tools {
     margin-bottom: 16px;
 }
@@ -448,12 +617,13 @@ select {
     border-radius: var(--admin-radius) !important;
     padding: 8px 16px !important;
     font-size: 0.85rem;
-    transition: all 0.2s;
+    transition: all var(--admin-transition);
 }
 
 .object-tools a:hover {
     border-color: var(--admin-amber) !important;
     color: var(--admin-amber) !important;
+    background: var(--admin-amber-dim) !important;
 }
 
 /* ===== Pagination ===== */
@@ -464,13 +634,14 @@ select {
     padding: 10px 16px;
     margin-top: 16px;
     font-size: 0.85rem;
+    transition: all var(--admin-transition);
 }
 
 .paginator a {
     color: var(--admin-text-muted) !important;
     padding: 4px 10px;
     border-radius: 4px;
-    transition: all 0.2s;
+    transition: all var(--admin-transition);
 }
 
 .paginator a:hover {
@@ -483,13 +654,14 @@ select {
     font-weight: 600;
 }
 
-/* ===== Filter Sidebar ===== */
+/* ===== Filter sidebar ===== */
 #changelist-filter {
     background: var(--admin-surface) !important;
     border: 1px solid var(--admin-border) !important;
     border-radius: var(--admin-radius-lg) !important;
     padding: 16px;
     margin-bottom: 16px;
+    transition: all var(--admin-transition);
 }
 
 #changelist-filter h2 {
@@ -506,7 +678,7 @@ select {
     padding: 4px 8px;
     display: inline-block;
     border-radius: 4px;
-    transition: all 0.2s;
+    transition: all var(--admin-transition);
 }
 
 #changelist-filter a:hover {
@@ -527,9 +699,10 @@ select {
     color: var(--admin-text-dim) !important;
     padding: 16px 32px;
     font-size: 0.78rem;
+    transition: all var(--admin-transition);
 }
 
-/* ===== Login Page ===== */
+/* ===== Login page ===== */
 .login #content {
     display: flex;
     justify-content: center;
@@ -567,17 +740,24 @@ select {
     text-align: center;
 }
 
-/* ===== Focus States (Accessibility) ===== */
-a:focus-visible, button:focus-visible, input:focus-visible,
-select:focus-visible, textarea:focus-visible {
+/* ===== Focus states ===== */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
     outline: 2px solid var(--admin-amber) !important;
     outline-offset: 2px;
 }
 
-/* ===== Reduced Motion ===== */
+/* ===== Reduced motion ===== */
 @media (prefers-reduced-motion: reduce) {
     * {
         transition: none !important;
+        animation: none !important;
+    }
+    .theme-toggle:hover {
+        transform: none;
     }
 }
 
@@ -591,13 +771,23 @@ select:focus-visible, textarea:focus-visible {
         padding: 16px !important;
     }
 
-    .module td, .module th {
+    .module td,
+    .module th {
         padding: 8px 10px !important;
         font-size: 0.82rem;
     }
 
-    input[type="text"], input[type="email"], input[type="password"],
-    input[type="url"], input[type="number"], textarea, select {
+    input[type='text'],
+    input[type='email'],
+    input[type='password'],
+    input[type='url'],
+    input[type='number'],
+    textarea,
+    select {
         max-width: 100%;
+    }
+
+    .user-greeting {
+        display: none;
     }
 }
